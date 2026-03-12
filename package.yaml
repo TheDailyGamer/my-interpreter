@@ -1,0 +1,20 @@
+name:                my-interpreter
+version:             0.1.0.0
+
+dependencies:
+  - base >= 4.7 && < 5
+  - array # Required for Alex
+  - containers # Required for Happy
+
+library:
+  source-dirs: src
+
+executables:
+  terrapin: # This is the name you use in "stack exec terrapin"
+    main:                Main.hs
+    source-dirs:         src
+    build-tools:
+      - alex
+      - happy
+    dependencies:
+      - my-interpreter

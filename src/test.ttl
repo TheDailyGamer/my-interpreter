@@ -1,0 +1,1 @@
+@prefix ont : <http://ont.example.org/> . <nmg> ont:worksFor <uos> .

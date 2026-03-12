@@ -1,0 +1,50 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.39.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           my-interpreter
+version:        0.1.0.0
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+library
+  exposed-modules:
+      Lexer
+      Main
+      Parser
+      Syntax
+      Tokens
+      Types
+  other-modules:
+      Paths_my_interpreter
+  hs-source-dirs:
+      src
+  build-depends:
+      array
+    , base >=4.7 && <5
+    , containers
+  default-language: Haskell2010
+
+executable terrapin
+  main-is: Main.hs
+  other-modules:
+      Lexer
+      Parser
+      Syntax
+      Tokens
+      Types
+      Paths_my_interpreter
+  hs-source-dirs:
+      src
+  build-tools:
+      alex
+    , happy
+  build-depends:
+      array
+    , base >=4.7 && <5
+    , containers
+    , my-interpreter
+  default-language: Haskell2010

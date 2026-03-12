@@ -1,0 +1,142 @@
+Coursework Specification Part 1
+In this coursework you are required to design and implement a domain specific programming language for querying simple RDF documents. RDF - the Resource Description Framework - is a data model and syntax for describing graphs, and is the underlying technology used on the Semantic Web.
+
+There are many query languages for assorted data formats, the most famous perhaps being SQL for relational databases. You are welcome to research any existing query languages to inspire the design of your own language. If you want, you could stick closely to the syntax of an existing language. Of course, you are also more than welcome to go your own way and be as original and creative as you want: it is YOUR programming language, and your design decisions.
+
+You are required to design an appropriate syntax and write an interpreter (possibly using alex and happy for lexing and parsing).
+
+Your overall goal is to design and implement a programming language for querying and manipulating simple RDF files.
+
+For each of the five tasks listed below, you will be required to produce a program, in your language, that solves the task. These five programs, together with the Haskell sources for your interpreter, are the required deliverables for the Part 1 submission.
+
+Please keep a record of all the sources you consult that influence your design, and include them in your programming language manual. This manual will be required for the Part 2 submission, along with programs for five additional unseen tasks, which we will make public after the deadline for Part 1. You should anticipate that the additional tasks will comprise of variations on, combinations of, and extensions to the first five tasks.
+
+The specification is deliberately loose. If we haven’t specified something, it is a design decision for you to make: e.g. how to handle syntax errors, illegal inputs, whether to allow comments, support for syntax highlighting, compile time warnings, any type systems etc.
+
+Notes on tasks
+For each task we will declare the name of one or more input files in a simple RDF format. The particular format of RDF we will be using is Turtle (the Terse RDF Triple Language), with some restrictions.
+
+Although the tasks for Part 1 are very specific in their requirements, you should bear in mind that Part 2 will require you to apply the operations more generally; you should consider how best to generalise the operations in your language.
+
+For every input graph A, you should assume that we will place a Turtle file called A.ttl in the directory where we will execute your interpreter. For example, if the problem input file is called “foo” and your interpreter is executed in directory /home/nmg/rql/ then the input file will be found at /home/nmg/rql/foo.ttl
+
+You should develop your interpreter using stack (see Jay's guide on using Stack). We will run your interpreter as:
+
+stack exec -- [name of your interpreter] [name of program file]
+
+So, if you've defined the executable for your interpreter in package.yaml as terrapin and you want to run your t4.rql, you would run your interpreter as:
+
+stack exec -- terrapin t4.rql
+
+Note that the names of the input RDF files are not provided on the command line; they should be specified in your programs.
+
+Notes on Turtle files
+The input files will be in a simple Turtle format. The input files contain a number of triples that correspond to the edges in a labelled directed graph: each triple (edge) contains three components: a subject (the vertex that the edge runs from), a predicate (the type of the edge) and an object (the vertex that the edge runs to). Subjects and predicates are always resources and are identified by URIs, whereas an object may be either a resource or a literal value. Note that a resource that appears as the predicate of one triple may also appear as the subject or object of another triple.
+
+Resource URIs are enclosed in angle brackets (e.g. <http://example.org/people/nmg> ) but may also be abbreviated using namespaces or base URIs (see below). Literal values are either strings (enclosed in double quotes, e.g. "Nick Gibbins") or integer values (written without enclosing quotes, e.g. 23).
+
+The following RDF graph contains two triples (i.e. two edges):
+
+Simple RDF graph containing two triples.
+
+It may be expressed in Turtle as:
+
+<http://example.org/nmg> <http://ont.example.org/name> "Nick Gibbins" .
+<http://example.org/nmg> <http://ont.example.org/worksFor> <http://example.org/uos> .
+
+Note that each triple in a Turtle file ends with a full stop: . . Note that the order of the triples in a Turtle file is not important, and that duplicate triples do not change the underlying graph.
+
+Turtle files may also contain a base URI declaration using @base <URI> . and there may be a number of prefix declarations @prefix name : <URI> . present. These are used as a convenience to make the data triples more human readable.
+
+The graph above may be abbreviated as follows using these declarations:
+
+@base <http://example.org/> .
+@prefix ont : <http://ont.example.org/> .
+<nmg> ont:name "Nick Gibbins" .
+<nmg> ont:worksFor <uos> .
+
+In addition to this there are two shorthand forms for describing triples. Where the triples share a subject we may write a predicate list, using semicolons ; to separate each predicate-object pair. The graph above could be further abbreviated as:
+
+@base <http://example.org/> .
+@prefix ont : <http://ont.example.org/> .
+<nmg> ont:name "Nick Gibbins" ; ont:worksFor <uos> .
+
+Where triples share both a subject and predicate we may write an object list, using commas , to separate each object. Using this, the following graph:
+
+@base <http://example.org/> .
+@prefix ont : <http://ont.example.org/> .
+<nmg> ont:teaches <comp2312> .
+<nmg> ont:teaches <comp2322> .
+
+could be abbreviated as:
+
+@base <http://example.org/> .
+@prefix ont : <http://ont.example.org/> .
+<nmg> ont:teaches <comp2312> , <comp2322> .
+
+There are some more advanced (read: less well-behaved) features of RDF and Turtle that we will not be using. We will not be using empty prefixes, blank nodes and node IDs, RDF containers, RDF collections, RDF datatypes and literal values other than strings and integers, language-tagged literal values; you can ignore all mention of these in the Turtle specification and RDF/Turtle primer.
+
+You may assume in the tasks below that all input files will be well-formed in this simple Turtle format.
+
+For each task, your output should be in the subset of Turtle where:
+
+All URIs are fully expanded (i.e. no @base or @prefix declarations) and there is no use of predicate or object lists - the triples should be written out in full with no abbreviations;
+Each triple begins on a new line, and there is a single space character after each subject, predicate and object (this is a subset of Turtle known as canonical N-Triples);
+Duplicate triples are removed.
+Your output should also be sorted lexicographically by subject, predicate, object, with the default Haskell value ordering for String and Integer types.
+
+Your interpreter must print its output to stdout, and should not print out any other information.
+
+Part 1 Submission
+You are required to submit two files by 4pm on Thu 23rd April, as follows:
+
+a zip file containing the source code for your language interpreter, written in Haskell
+a zip file containing five programs, written in your language, that solve the five tasks below. The programs should be in files names t1.rql, t2.rql, t3.rql, t4.rql and t5.rql.
+Each task in Part 1 will be worth 10% of the overall coursework mark (i.e. 4% of the module mark).
+
+Task 1: Graph Union
+Assume two input graphs foo and bar.
+
+Your program should output a single combined graph (in Turtle) that contains all of the triples in both foo and bar. You should exclude duplicate triples (i.e. where subject, predicate and object are the same). Be careful about name clashes that arise from the use of @base and @prefix.
+
+Task 2: Pattern Matching
+Assume one input graph baz.
+
+Your program should output all triples where the predicate is http://example.org/ont/hasAge and the object is an integer value that is >= 21.
+
+Task 3: Further Pattern Matching
+Assume one input graph qux.
+
+Your program should output all triples where the predicate is http://example.org/ont/studiesAt or http://example.org/ont/worksFor and the object is http://example.org/uos
+
+Task 4: Aggregates
+Assume one input graph quux.
+
+If quux contains multiple triples of the form:
+
+XXX <http://example.org/ont/price> PPP .
+
+where XXX is a resource and PPP is an integer, your program should output 
+
+XXX <http://example.org/ont/price> MMM .
+
+where MMM is the maximum value of PPP.
+
+Note that, if there are several different subjects XXX, you should output one triple for each distinct XXX.
+
+Task 5: Graph Edits
+Assume two input graph,  xyzzy and plugh.
+
+If xyzzy contains a triple of the form:
+
+XXX <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> YYY .
+
+and plugh contains a triple of the form:
+
+YYY <http://www.w3.org/2000/01/rdf-schema#subClassOf> ZZZ .
+
+where XXX, YYY and ZZZ are resources, your program should output the triple:
+
+XXX <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ZZZ .
+
+Note that your program should output all such triples.

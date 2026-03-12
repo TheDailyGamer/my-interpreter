@@ -1,0 +1,34 @@
+-- The Query Expression represents the operations in your custom language.
+data Expr
+  -- BASE: Bind a file name to a graph. 
+  -- e.g., Load "foo" -> tells the interpreter to read "foo.ttl"
+  = Load String
+  
+  -- TASK 1: Combine two expressions (Graph Union)
+  | Union Expr Expr
+  
+  -- TASKS 2 & 3: Filter a graph based on conditions.
+  -- e.g., Filter (PredEq <hasAge>) (ObjGTE 21) (Load "baz")
+  | Filter PredicateCond ObjectCond Expr
+  
+  -- TASK 4: Aggregation. 
+  -- Groups by subject, finds the max integer for the given URI, and outputs a new triple.
+  | AggregateMax URI Expr
+  
+  -- TASK 5: Graph Edits / Joins.
+  -- Takes two Predicate URIs and two Graphs.
+  -- If (XXX Pred1 YYY) in Graph1 AND (YYY Pred2 ZZZ) in Graph2, output (XXX Pred1 ZZZ).
+  | Join URI URI Expr Expr
+  deriving (Show, Eq)
+
+
+-- Helper types for your Filters (Tasks 2 & 3)
+data PredicateCond
+  = PredEq URI                     -- e.g., Predicate == <hasAge>
+  | PredOr PredicateCond PredicateCond -- e.g., Predicate == <studiesAt> OR <worksFor>
+  deriving (Show, Eq)
+
+data ObjectCond
+  = ObjEq Object                   -- e.g., Object == <uos>
+  | ObjGTE Integer                 -- e.g., Object >= 21
+  deriving (Show, Eq)
