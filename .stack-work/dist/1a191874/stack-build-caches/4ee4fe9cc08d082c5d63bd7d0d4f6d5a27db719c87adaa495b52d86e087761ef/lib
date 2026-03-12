@@ -1,0 +1,30 @@
+? C:\Users\Anghelo\AppData\Local\Programs\stack\x86_64-windows\ghc-9.10.3\lib\x86_64-windows-ghc-9.10.3\rts-1.0.2\include\MachDeps.h
+: hash: 94f383f2743e37d6240fdf24b33714450bccce7dc5d0aa8e593f26e1b8a3d4af
+? C:\Users\Anghelo\AppData\Local\Programs\stack\x86_64-windows\ghc-9.10.3\lib\x86_64-windows-ghc-9.10.3\rts-1.0.2\include\ghcautoconf.h
+: hash: 453828466605dfc52927652cbf0c3d45ae83e342a2b3e6810b1b5a5ecb7562a1
+? C:\Users\Anghelo\AppData\Local\Programs\stack\x86_64-windows\ghc-9.10.3\lib\x86_64-windows-ghc-9.10.3\rts-1.0.2\include\ghcconfig.h
+: hash: 03f4611ae97decc9e8c76c212bf7886d003b29d5c62b43fee6623a799f6e5fdf
+? C:\Users\Anghelo\AppData\Local\Programs\stack\x86_64-windows\ghc-9.10.3\lib\x86_64-windows-ghc-9.10.3\rts-1.0.2\include\ghcplatform.h
+: hash: f7124b956b87283537d06be5649210eb52f2a2e6470c7abb0a6fe31d3028f0bd
+? C:\Users\Anghelo\AppData\Local\Programs\stack\x86_64-windows\ghc-9.10.3\lib\x86_64-windows-ghc-9.10.3\rts-1.0.2\include\ghcversion.h
+: hash: 7038bb968ecc358729edd5d1e72a638409aaf5ea6ab13ce6ec7f253daa3b6529
+C:\Users\Anghelo\my-interpreter\.stack-work\dist\1a191874\build\autogen\Paths_my_interpreter.hs:
+  hash: 690af0a5df0eec7f038e4e03806aeabf95b3e4891e64ed358bea8e111c6b721a
+C:\Users\Anghelo\my-interpreter\.stack-work\dist\1a191874\build\autogen\cabal_macros.h:
+  hash: 5e2a905bfdc7a4e44e067459ffc971472969777bbd82fdcb8f9ad367332c28ae
+C:\Users\Anghelo\my-interpreter\my-interpreter.cabal:
+  hash: 6666fe56c8da6962b9fbc9234ee6becb7092447d8248ae225e6e55aed62a74d4
+C:\Users\Anghelo\my-interpreter\package.yaml:
+  hash: 92d620a94c97a0838feebad82069a6eb5c99a06c2cf36baf1f2d8c242a1858dd
+C:\Users\Anghelo\my-interpreter\src\Lexer.x:
+  hash: 7d37b8c47d9e527c97f4e1dce36007fd97ceb9439076187b0100fd8810ff96b2
+C:\Users\Anghelo\my-interpreter\src\Main.hs:
+  hash: 4bcada1d7b4d87635b93396b32af453fdd956c4e578d64f2116db3231e338107
+C:\Users\Anghelo\my-interpreter\src\Parser.y:
+  hash: 2767cee4506361fba04fc36f3d1777e4bd8511c6c81cfa8b403363f0de3a0602
+C:\Users\Anghelo\my-interpreter\src\Syntax.hs:
+  hash: 672fa1cbe89392ac786adc3c1714cbafd022174a22bfcd61f0828d9827a54cb9
+C:\Users\Anghelo\my-interpreter\src\Tokens.hs:
+  hash: 4f067332eecc3d755ed60329e709ee343fead18bd88e71a64cd674e7e0455d82
+C:\Users\Anghelo\my-interpreter\src\Types.hs:
+  hash: 2dc5a6be53eaa17302e04d7cb6566ee55abebf802bcb3ff843b615d7340a1e32
